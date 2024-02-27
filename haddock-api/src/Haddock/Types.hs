@@ -1023,17 +1023,18 @@ type instance XCTyFamInstDecl DocNameI = NoExtField
 -----------------------------------------------------------------------------
 -- * NFData instances for GHC types
 -----------------------------------------------------------------------------
-
+{-
 instance NFData RdrName where
   rnf (Unqual on) = rnf on
   rnf (Qual mn on) = mn `deepseq` on `deepseq` ()
   rnf (Orig m on) = m `deepseq` on `deepseq` ()
   rnf (Exact n) = rnf n
-
+-}
+{-
 instance NFData SourceText where
   rnf NoSourceText   = ()
   rnf (SourceText s) = rnf s
-
+-}
 instance NFData FixityDirection where
   rnf InfixL = ()
   rnf InfixR = ()
@@ -1042,14 +1043,16 @@ instance NFData FixityDirection where
 instance NFData Fixity where
   rnf (Fixity sourceText n dir) =
     sourceText `deepseq` n `deepseq` dir `deepseq` ()
-
+{-
 instance NFData ann => NFData (SrcSpanAnn' ann) where
   rnf (SrcSpanAnn a ss) = a `deepseq` ss `deepseq` ()
-
+-}
+{-
 instance NFData (EpAnn NameAnn) where
   rnf EpAnnNotUsed = ()
   rnf (EpAnn en ann cs) = en `deepseq` ann `deepseq` cs `deepseq` ()
-
+-}
+{-
 instance NFData NameAnn where
   rnf (NameAnn a b c d e) =
               a
@@ -1088,55 +1091,66 @@ instance NFData NameAnn where
     `deepseq` c
     `deepseq` ()
   rnf (NameAnnTrailing a) = rnf a
-
+-}
+{-
 instance NFData TrailingAnn where
   rnf (AddSemiAnn epaL)  = rnf epaL
   rnf (AddCommaAnn epaL) = rnf epaL
   rnf (AddVbarAnn epaL)  = rnf epaL
-
+-}
+{-
 instance NFData NameAdornment where
   rnf NameParens     = ()
   rnf NameParensHash = ()
   rnf NameBackquotes = ()
   rnf NameSquare     = ()
-
+-}
+{-
 instance NFData EpaLocation where
   rnf (EpaSpan ss bs)  = ss `seq` bs `deepseq` ()
   rnf (EpaDelta dp lc) = dp `seq` lc `deepseq` ()
-
+-}
+{-
 instance NFData EpAnnComments where
   rnf (EpaComments cs) = rnf cs
   rnf (EpaCommentsBalanced cs1 cs2) = cs1 `deepseq` cs2 `deepseq` ()
-
+-}
+{-
 instance NFData EpaComment where
   rnf (EpaComment t rss) = t `deepseq` rss `seq` ()
-
+-}
+{-
 instance NFData EpaCommentTok where
   rnf (EpaDocComment ds)  = rnf ds
   rnf (EpaDocOptions s)   = rnf s
   rnf (EpaLineComment s)  = rnf s
   rnf (EpaBlockComment s) = rnf s
   rnf EpaEofComment       = ()
-
-
+-}
+{-
 instance NFData a => NFData (Strict.Maybe a) where
   rnf Strict.Nothing  = ()
   rnf (Strict.Just x) = rnf x
-
+-}
+{-
 instance NFData BufSpan where
   rnf (BufSpan p1 p2) = p1 `deepseq` p2 `deepseq` ()
-
+-}
+{-
 instance NFData BufPos where
   rnf (BufPos n) = rnf n
-
+-}
+{-
 instance NFData Anchor where
   rnf (Anchor ss op) = ss `seq` op `deepseq` ()
-
+-}
+{-
 instance NFData AnchorOperation where
   rnf UnchangedAnchor  = ()
   rnf (MovedAnchor dp) = rnf dp
-
+-}
+{-
 instance NFData DeltaPos where
   rnf (SameLine n)        = rnf n
   rnf (DifferentLine n m) = n `deepseq` m `deepseq` ()
-
+-}
